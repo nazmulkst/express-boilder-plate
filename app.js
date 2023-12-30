@@ -4,10 +4,13 @@
 // const app = new express();
 // const bodyParser = require('body-parser')
 // import { Express } from 'express';
+require('dotenv').config();
 const express = require('express')
+require('./src/db/connect')
 const router = require('./src/route/api')
-const app = new express();
+const app = express();
 const bodyParser = require('body-parser')
+const PORT = 5000;
 // import router from './src/route/api';
 // import bodyParser from 'body-parser';
 
@@ -41,6 +44,7 @@ app.use(helmet());
 app.use(ExpressMongoSanitize());
 app.use(hpp());
 app.use(xss())
+// app.use(router)
 
 // Body Parser Implent
 app.use(bodyParser.json())
@@ -63,18 +67,22 @@ const url = "mongodb://localhost:27017/inventory";
 
 
 // Frontend Tagging
-app.use(express.static('client/dist'));
-app.get("*", function(req, res){
-    req.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
-})
+// app.use(express.static('client/dist'));
+// app.get("*", function(req, res){
+//     req.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+// })
 
 // Managing Backend API Routing
 app.use("/api/v1", router);
 
 // Undefined Route Implement
 
-// app.use("*", function(req, res){
-//     res.status(404).json({status:"fail", data: "Not found"})
+app.use("*", function(req, res){
+    res.status(404).json({status:"fail", data: "Not found"})
+})
+
+// app.listen(PORT, function(req, res){
+//     console.log('Application Run Success with Port: ' + PORT)
 // })
 
 module.exports = app;
