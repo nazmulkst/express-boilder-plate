@@ -109,21 +109,40 @@ exports.deleteUser = async(req, res) => {
 }
 
 exports.loginUser = async(req, res) => {
-    const user_name = req.body["user_name"];
-    const password = req.body["password"];
+    const {username, password} = req.body;
+    console.log(username,password)
 
-    UserModel.find({user_name: user_name, password:password}, (error, data) => {
-        if(error){
-            res.status(400).json({status: "fail", data: error})
+    try {
+        const userData = await UserModel.find({username, password}).count();
+        console.log('data', userData)
+        if(userData > 0){
+            // Create auth token
+            const payload = {exp: Math.floor(Date.now() / 1000) + (24*60*60), data:userData[0]};
+            const token = jwt.sign(payload, 'SecretKey123456789');
+            res.status(200).json({
+                userAuth: {
+                    authToken: token
+                }
+            })
         } else {
-            if(data.length > 0){
-                // Create auth token
-                const payload = {exp: Math.floor(Date.now() / 1000) + (24*60*60), data:data[0]};
-                const token = jwt.sign(payload, 'SecretKey123456789');
-                res.status(200).json({status: "success", data: data[0]})
-            } else {
-                res.status(401).json({status:"unauthorized"})
-            }
+            res.status(400).json("UnAuthorized")
         }
-    });
+    } catch (error) {
+        res.status(400).json(error)
+        console.log('Authentication Fail')
+    }
+    // UserModel.find({username: username, password:password}, (error, data) => {
+    //     if(error){
+    //         res.status(400).json({status: "fail", data: error})
+    //     } else {
+    //         if(data.length > 0){
+    //             // Create auth token
+    //             const payload = {exp: Math.floor(Date.now() / 1000) + (24*60*60), data:data[0]};
+    //             const token = jwt.sign(payload, 'SecretKey123456789');
+    //             res.status(200).json({status: "success", data: data[0]})
+    //         } else {
+    //             res.status(401).json({status:"unauthorized"})
+    //         }
+    //     }
+    // });
 }
