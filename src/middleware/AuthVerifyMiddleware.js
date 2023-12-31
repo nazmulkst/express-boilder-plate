@@ -4,7 +4,9 @@ module.exports = (req, res, next) => {
     const token = req.headers['token'];
     try {
         const decoded = jwt.verify(token, 'SecretKey123456789');
-        if(decoded['exp'] > Math.floor(Date.now() / 1000)){
+        console.log(decoded)
+        if(decoded['exp'] >= Math.floor(Date.now() / 1000)){
+            const username = decoded['username'];
             next();
         } else {
             res.status(400).json('UnAuthorized');

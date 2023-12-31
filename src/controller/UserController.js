@@ -117,7 +117,7 @@ exports.loginUser = async(req, res) => {
         console.log('data', userData)
         if(userData > 0){
             // Create auth token
-            const payload = {exp: Math.floor(Date.now() / 1000) + (24*60*60), data:userData[0]};
+            const payload = {exp: Math.floor(Date.now() / 1000) + (24*60*60), username:username};
             const token = jwt.sign(payload, 'SecretKey123456789');
             res.status(200).json({
                 userAuth: {
