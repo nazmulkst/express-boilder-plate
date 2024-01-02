@@ -4,6 +4,8 @@ const BrandController = require('../controller/BrandController');
 const CategoryController = require('../controller/CategoryController')
 const ExpenseTypeController = require('../controller/ExpenseTypeController');
 const ExpenseListController = require('../controller/ExpenseListController');
+const CustomerController = require('../controller/CustomerController');
+const SupplierController = require('../controller/SupplierController');
 const AuthVerifyMiddleware = require('../middleware/AuthVerifyMiddleware');
 
 const router = new express.Router();
@@ -42,5 +44,23 @@ router.put("/updateExpenseType/:id", AuthVerifyMiddleware, ExpenseTypeController
 
 // ExpenseList Route
 router.post("/createExpenseList", AuthVerifyMiddleware, ExpenseListController.createExpenseList);
+router.get("/getAllExpenseList", AuthVerifyMiddleware, ExpenseListController.getAllExpenseList);
+// router.get("/getExpenseList", AuthVerifyMiddleware, ExpenseListController.getExpenseList)
+router.delete("/deleteExpenseList/:id", AuthVerifyMiddleware, ExpenseListController.deleteExpenseList)
+router.put("/updateExpenseList", AuthVerifyMiddleware, ExpenseListController.updateExpenseList);
+
+// ExpenseType Route
+router.post("/createCustomer", AuthVerifyMiddleware, CustomerController.createCustomer);
+router.get("/getAllCustomer", AuthVerifyMiddleware, CustomerController.getAllCustomer);
+router.get("/getCustomer/:id", AuthVerifyMiddleware, CustomerController.getCustomer);
+router.delete("/deleteCustomer/:id", AuthVerifyMiddleware, CustomerController.deleteCustomer)
+router.put("/updateCustomer/:id", AuthVerifyMiddleware, CustomerController.updateCustomer)
+
+// ExpenseType Route
+router.post("/createSupplier", AuthVerifyMiddleware, SupplierController.createSupplier);
+router.get("/getAllSupplier", AuthVerifyMiddleware, SupplierController.getAllSupplier);
+router.get("/getSupplier/:id", AuthVerifyMiddleware, SupplierController.getSupplier);
+router.delete("/deleteSupplier/:id", AuthVerifyMiddleware, SupplierController.deleteSupplier);
+router.put("/updateSupplier/:id", AuthVerifyMiddleware, SupplierController.updateSupplier);
 
 module.exports = router;

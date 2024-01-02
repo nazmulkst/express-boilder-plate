@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const dataSchema = mongoose.Schema({
-    listId: {type:Number, unique:true},
+    expenseId: {type:Number, unique:true},
     typeId: {type:Number, required: true},
     name: {type:String, required:true},
     cost: {type:Number, required: true},
