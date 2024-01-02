@@ -2,6 +2,8 @@ const express = require('express');
 const UserController = require('../controller/UserController');
 const BrandController = require('../controller/BrandController');
 const CategoryController = require('../controller/CategoryController')
+const ExpenseTypeController = require('../controller/ExpenseTypeController');
+const ExpenseListController = require('../controller/ExpenseListController');
 const AuthVerifyMiddleware = require('../middleware/AuthVerifyMiddleware');
 
 const router = new express.Router();
@@ -31,5 +33,14 @@ router.get("/getCategory/:id", AuthVerifyMiddleware, CategoryController.getCateg
 router.delete("/deleteCategory/:id", AuthVerifyMiddleware, CategoryController.deleteCategory);
 router.put("/updateCategory/:id", AuthVerifyMiddleware, CategoryController.updateCategory);
 
+// ExpenseType Route
+router.post("/createExpenseType", AuthVerifyMiddleware, ExpenseTypeController.createExpenseType);
+router.get("/getAllExpenseType", AuthVerifyMiddleware, ExpenseTypeController.getAllExpenseType);
+router.get("/getExpenseType/:id", AuthVerifyMiddleware, ExpenseTypeController.getExpenseType);
+router.delete("/deleteExpenseType/:id", AuthVerifyMiddleware, ExpenseTypeController.deleteExpenseType)
+router.put("/updateExpenseType/:id", AuthVerifyMiddleware, ExpenseTypeController.updateExpenseType)
+
+// ExpenseList Route
+router.post("/createExpenseList", AuthVerifyMiddleware, ExpenseListController.createExpenseList);
 
 module.exports = router;
