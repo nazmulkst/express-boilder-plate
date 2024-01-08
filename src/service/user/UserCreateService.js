@@ -1,7 +1,7 @@
-const UserCreateService = async (request, UserModel) => {
+const UserCreateService = async (request, DataModel) => {
     try {
         const reqBody = request.body;
-        const data = await UserModel.create(reqBody);
+        const data = await DataModel.create(reqBody);
         
         return {status: 200, data: data}
         
