@@ -5,7 +5,7 @@ const UserVerifyOtpService = async(request, DataModel) => {
     const status = 0;
     const statusUpdate = 1;
     try {
-        const OTPCount = await DataModel.aggregate([{$match: {email: email, otp: OTPCode, status:status}}, {$count: "total"}]);
+        const OTPCount = await OTPModel.aggregate([{$match: {email: email, otp: OTPCode, status:status}}, {$count: "total"}]);
         if(OTPCount.length > 0){
             const OTPUpdate = await DataModel.updateOne({email:email, opt: OTPCode, status:status}, {email: email, opt: OTPCode, status:statusUpdate});
 
