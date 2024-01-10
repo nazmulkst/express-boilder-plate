@@ -7,6 +7,7 @@ const ExpenseListController = require('../controller/ExpenseListController');
 const CustomerController = require('../controller/CustomerController');
 const SupplierController = require('../controller/SupplierController');
 const AuthVerifyMiddleware = require('../middleware/AuthVerifyMiddleware');
+const ControllerUser = require('../controller/user/UserController');
 
 const router = new express.Router();
 
@@ -62,5 +63,8 @@ router.get("/getAllSupplier", AuthVerifyMiddleware, SupplierController.getAllSup
 router.get("/getSupplier/:id", AuthVerifyMiddleware, SupplierController.getSupplier);
 router.delete("/deleteSupplier/:id", AuthVerifyMiddleware, SupplierController.deleteSupplier);
 router.put("/updateSupplier/:id", AuthVerifyMiddleware, SupplierController.updateSupplier);
+
+// User Registration
+router.post("/registration", AuthVerifyMiddleware, ControllerUser.registration)
 
 module.exports = router;

@@ -9,7 +9,6 @@ const express = require('express')
 require('./src/db/connect')
 const router = require('./src/route/api')
 const app = express();
-const bodyParser = require('body-parser')
 const PORT = 5000;
 // import router from './src/route/api';
 // import bodyParser from 'body-parser';
