@@ -1,4 +1,4 @@
-const OTPModel = require('../../model/OTPModel');
+const OTPModel = require('../../model/user/OTPModel');
 
 const UserVerifyOtpService = async(request, DataModel) => {
     const {email, OTPCode} = request.params;

@@ -1,4 +1,4 @@
-const OTPModel = require('../../model/OTPModel');
+const OTPModel = require('../../model/user/OTPModel');
 
 const UserResetPasswordService = async(request, DataModel) => {
     const {email, OTPCode, password} = request.body;

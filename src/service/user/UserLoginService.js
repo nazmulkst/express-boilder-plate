@@ -2,9 +2,9 @@ const CreateToken = require('../../utility/CreateToken');
 
 const UserLoginService = async(request, DataModel) => {
     try {
-        const {userId} = request.params;
+        const {email,password} = request.body;
     
-        const data = await DataModel.aggregate([{$match: request.body}, {$project: {userId:0, email:1, firstName:1, lastName:1,mobile:1,photo:1}}]);
+        const data = await DataModel.aggregate([{$match: {email,password}}, {$project: {userId:0, email:1, firstName:1, lastName:1,mobile:1,photo:1}}]);
     
         if(data.length > 0){
             const token = await CreateToken(data[0]['email']);
